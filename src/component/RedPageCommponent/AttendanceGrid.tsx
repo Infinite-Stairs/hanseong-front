@@ -12,20 +12,20 @@ const AttendanceGrid: React.FC = () => {
   const days = AttendanceGridDummy;
 
   const getColorLevel = (steps: number): string => {
-    if (steps === 0) return "level-0";
-    if (steps < 10) return "level-1";
-    if (steps < 20) return "level-2";
-    if (steps < 40) return "level-3";
-    return "level-4";
+    if (steps === 0) return "level0";
+    if (steps < 10) return "level1";
+    if (steps < 20) return "level2";
+    if (steps < 40) return "level3";
+    return "level4";
   };
 
   return (
-    <div className={styles.attendancContainer}>
+    <div className={styles.attendanceContainer}>
       <div className={styles.attendanceGrid}>
         {days.map((day) => (
           <div
             key={day.date}
-            className={`cell ${getColorLevel(day.stepCount)}`}
+            className={`${styles.cell} ${styles[getColorLevel(day.stepCount)]}`}
             onMouseEnter={() => setHoverInfo(day)}
             onMouseLeave={() => setHoverInfo(null)}
           />
