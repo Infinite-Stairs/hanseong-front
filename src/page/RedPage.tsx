@@ -6,6 +6,11 @@ import 빅벤_흐림 from "../assets/building/빅벤_흐림.png";
 import 남산타워_흐림 from "../assets/building/남산타워_흐림.png";
 import 롯데타워_흐림 from "../assets/building/롯데타워_흐림.png";
 import 칼리파_흐림 from "../assets/building/칼리파_흐림.png";
+import 정보섬_밝음 from "../assets/building/정보섬_밝음.png";
+import 빅벤_밝음 from "../assets/building/빅벤_밝음.png";
+import 칼리파_밝음 from "../assets/building/칼리파_밝음.png";
+import 남산타워_밝음 from "../assets/building/남산타워_밝음.png";
+import 롯데타워_밝음 from "../assets/building/롯데타워_밝음.png";
 
 const RedPage = () => {
   return (

@@ -1,0 +1,79 @@
+ .wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(#f7fbff, #d0e6ff);
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+.contentWrapper {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding-top:100px;
+}
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color:black;
+}
+
+.rightPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rightTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color:black;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cardButtons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.actionButton {
+  background-color: #3c7dff;
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.actionButton:hover {
+  background-color: #2a63d0;
+}
+
