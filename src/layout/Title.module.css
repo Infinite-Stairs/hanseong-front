@@ -8,7 +8,7 @@
 }
 
 .title {
-  width: 400px;
+  width: 500px;
   margin: 0;
   font-size: clamp(2rem, 3vw, 3.2rem);
   font-weight: 700;
