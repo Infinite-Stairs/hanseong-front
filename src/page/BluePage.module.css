@@ -8,7 +8,6 @@
   background: linear-gradient(#f7fbff, #d0e6ff);
   position: relative;
   overflow: hidden;
-  padding-top: 80px;
 }
 
 .contentWrapper {
@@ -18,7 +17,13 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
-  padding-top:100px;
+  z-index: 1;
+  margin-top: 190px;
+}
+
+.leftPanel,
+.rightPanel{
+  gap: 40px;
 }
 
 .leftPanel {
@@ -39,6 +44,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  color:black;
 }
 
 .rightTitle {
@@ -53,6 +59,7 @@
   border-radius: 24px;
   padding: 24px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 400px;
 }
 
 .cardButtons {
@@ -62,18 +69,13 @@
   margin-top: 24px;
 }
 
-.actionButton {
-  background-color: #3c7dff;
-  color: #fff;
-  border-radius: 999px;
-  padding: 10px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
+.blue_building {  
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index: 0;
+  opacity: 0.2;
+  pointer-events: none;
 }
-
-.actionButton:hover {
-  background-color: #2a63d0;
-}
-

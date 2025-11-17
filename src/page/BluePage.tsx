@@ -3,11 +3,12 @@ import styles from "./BluePage.module.css";
 import Healthcare from "../component/BluePageCommponent/Healthcare";
 import FootPress from "../component/BluePageCommponent/FootPress";
 import Title from "../layout/Title";
+import BuildingGrid from "../component/RedPageCommponent/BuildingGrid";
 
 const BluePage = () => {
   const [backendData] = useState({
     isScoliosisRisk: true,
-    isFootPressureBalanced: true,
+    isFootPressureBalanced: false,
   });
 
   return (
@@ -21,16 +22,15 @@ const BluePage = () => {
           <FootPress isBalanced={backendData.isFootPressureBalanced} />
         </div>
 
-        {/* 오른쪽: 퍼스널 헬스 케어 데이터 */}
+        {/* 오른쪽: 헬스 케어 정보 */}
         <div className={styles.rightPanel}>
           <div className={styles.rightTitle}>퍼스널 헬스 케어 데이터</div>
           <div className={styles.card}>
             <Healthcare isRisk={backendData.isScoliosisRisk} />
-            <div className={styles.cardButtons}>
-              <button className={styles.actionButton}>해결책 보러가기</button>
-              <button className={styles.actionButton}>해결책 보러가기</button>
-            </div>
           </div>
+        </div>
+        <div className={styles.blue_building}>
+            <BuildingGrid/>
         </div>
       </div>
     </section>

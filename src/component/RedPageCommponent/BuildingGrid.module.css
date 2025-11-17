@@ -25,30 +25,40 @@
   max-height: 94vh;
   left: 3%;
   z-index: 3;
+  transform: scale(0.95);
+  transform-origin: bottom center;
 }
 
 .namsan {
   max-height: 94vh;
   right: 2%;
   z-index: 4;
+  transform: scale(0.95);
+  transform-origin: bottom center;
 }
 
 .khalifa {
   max-height: 76vh;
   left: 21%;
   z-index: 1;
+  transform: scale(0.95);
+  transform-origin: bottom center;
 }
 
 .lotte {
   max-height: 76vh;
   left: 63%;
   z-index: 2;
+  transform: scale(0.95);
+  transform-origin: bottom center;
 }
 
 .infoIsland {
   max-height: 50vh;
-  left: 38%;
+  left: 34%;
   z-index: 0;
+  transform: scale(0.95);
+  transform-origin: bottom center;
 }
 
 .tooltip {

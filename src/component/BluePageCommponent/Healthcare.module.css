@@ -1,0 +1,29 @@
+.ItsOk {
+  display: flex;        /* 가로 정렬 */
+  justify-content: center; /* 가운데 정렬(선택) */
+  align-items: center;  /* 세로축 정렬 */
+  gap: 40px;            /* 두 div 사이 간격 */
+}
+
+.okleft, .okright {
+  display: flex;
+  flex-direction: column; /* 글 + 이미지 세로 정렬 */
+  align-items: center;     /* 가운데 정렬 */
+  text-align: center;
+  color:black;
+}
+
+.actionButton {
+  background-color: #3c7dff;
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.actionButton:hover {
+  background-color: #2a63d0;
+}
