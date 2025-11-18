@@ -6,10 +6,10 @@ import UpDownButton from "./component/UpDownButton";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [isRedPage, setIsRedPage] = useState(true);
+  const [isBluePage, setIsBluePage] = useState(true);
 
   const handleTogglePage = () => {
-    setIsRedPage((prev) => !prev);
+    setIsBluePage((prev) => !prev);
   };
 
   return (
@@ -17,12 +17,12 @@ const App = () => {
       <Router>
         <div className="app-wrapper">
           <div
-            key={isRedPage ? "red" : "blue"}
-            className={`page-transition ${isRedPage ? "red" : "blue"}`}
+            key={isBluePage ? "blue" : "red"}
+            className={`page-transition ${isBluePage ? "blue" : "red"}`}
           >
-            {isRedPage ? <RedPage /> : <BluePage />}
+            {isBluePage ? <BluePage /> : <RedPage />}
           </div>
-          <UpDownButton isRedPage={isRedPage} onToggle={handleTogglePage} />
+          <UpDownButton isBluePage={isBluePage} onToggle={handleTogglePage} />
         </div>
       </Router>
     </>
