@@ -1,0 +1,81 @@
+ .wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(#f7fbff, #d0e6ff);
+  position: relative;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  z-index: 1;
+  margin-top: 190px;
+}
+
+.leftPanel,
+.rightPanel{
+  gap: 40px;
+}
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color:black;
+}
+
+.rightPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color:black;
+}
+
+.rightTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color:black;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
+
+.cardButtons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.blue_building {  
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index: 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
