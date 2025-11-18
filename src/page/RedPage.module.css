@@ -16,6 +16,15 @@
   justify-content: center;
 }
 
+.BackToGame{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: flex-start;
+  margin-left:20px;
+  
+}
+
 .content {
   display: flex;
   flex-direction: column;
