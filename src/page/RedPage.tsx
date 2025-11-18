@@ -2,7 +2,7 @@ import styles from "./RedPage.module.css";
 import AttendanceGrid from "../commponent/RedPageCommponent/AttendanceGrid";
 import BuildingGrid from "../commponent/RedPageCommponent/BuildingGrid";
 import Title from "../layout/Title";
-import GameComponent from "../commponent/Gamecomponent";
+import GameComponent from "../commponent/GameComponent";
 
 const RedPage = () => {
   return (
