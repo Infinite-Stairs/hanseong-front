@@ -1,5 +1,3 @@
-import styles from "./GameComponent.module.css";
-
 declare global {
     interface Window {
         unityInstance: any;
