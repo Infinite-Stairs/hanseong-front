@@ -1,22 +1,48 @@
+import { useEffect, useState } from "react";
 import styles from "./FootPress.module.css";
 import 오른발 from "../../assets/오른발.png";
 import 왼발 from "../../assets/왼발.png";
+import { getMetrics } from "../../api/api"; // <-- API 함수 가져오기
 
-interface FootPressProps {
-  isBalanced: boolean;
-}
+const FootPress = () => {
+  const [leftPct, setLeftPct] = useState<number | null>(null);
+  const [rightPct, setRightPct] = useState<number | null>(null);
 
-const FootPress = ({ isBalanced }: FootPressProps) => {
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await getMetrics(1); // GET /metrics?n=1
+        const data = res[0];
+
+        setLeftPct(data.left_pct);
+        setRightPct(data.right_pct);
+      } catch (err) {
+        console.error("족저압 데이터를 불러오지 못했습니다.", err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  // API 도착 전
+  if (leftPct === null || rightPct === null) {
+    return <div>Loading...</div>;
+  }
+
+  const isRightDominant = rightPct > leftPct;
+
   return (
     <>
-      {isBalanced ? (
-          <div className={styles.right}>
-            <img src={오른발} alt="오른발"></img>
-          </div>
+      {isRightDominant ? (
+        <div className={styles.right}>
+          <img src={오른발} alt="오른발" />
+          <p>{rightPct}%</p>
+        </div>
       ) : (
-          <div className={styles.left}>
-            <img src={왼발} alt="왼발"></img>
-          </div>
+        <div className={styles.left}>
+          <img src={왼발} alt="왼발" />
+          <p>{leftPct}%</p>
+        </div>
       )}
     </>
   );

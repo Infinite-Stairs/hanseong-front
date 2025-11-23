@@ -13,13 +13,15 @@ const BluePage = () => {
 
   return (
     <section className={styles.wrapper}>
-<Title />
+      <Title />
 
       <div className={styles.contentWrapper}>
         {/* 왼쪽: 족저압 정보 */}
         <div className={styles.leftPanel}>
           <div className={styles.leftTitle}>족저압 정보</div>
-          <FootPress isBalanced={backendData.isFootPressureBalanced} />
+
+          {/* FootPress가 자체적으로 API 호출 */}
+          <FootPress />
         </div>
 
         {/* 오른쪽: 헬스 케어 정보 */}
@@ -29,8 +31,9 @@ const BluePage = () => {
             <Healthcare isRisk={backendData.isScoliosisRisk} />
           </div>
         </div>
+
         <div className={styles.blue_building}>
-            <BuildingGrid/>
+          <BuildingGrid />
         </div>
       </div>
     </section>
