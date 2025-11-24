@@ -11,9 +11,9 @@ const App = () => {
   const handleTogglePage = () => {
     setIsBluePage((prev) => !prev);
   };
-  // 조이스틱으로 페이지 전환하는 훅
-  enjoystick(handleTogglePage);
-
+  enjoystick(() => {
+    console.log("패드 입력 감지됨! (App.tsx)");
+  });
   return (
     <>
       <div className="app-wrapper">

@@ -1,15 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function useJoystickNavigation(onToggle: () => void) {
+  const prev = useRef<boolean[]>([]);
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Enter / ArrowUp / ArrowDown 버튼으로 페이지 토글
-      if (e.key === "Enter" || e.key === "ArrowUp" || e.key === "ArrowDown") {
-        onToggle();
-      }
+    const loop = () => {
+      const gamepads = navigator.getGamepads();
+      const gp = gamepads[0];
+      if (!gp) return;
+
+      const cur = gp.buttons.map(b => b.pressed);
+
+      // A(0), B(1), UP(12), DOWN(13)
+      const toggleButtons = [0, 1, 12, 13];
+
+      toggleButtons.forEach(i => {
+        if (cur[i] && !prev.current[i]) {
+          onToggle();
+        }
+      });
+
+      prev.current = cur;
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    const id = setInterval(loop, 50);
+    return () => clearInterval(id);
   }, [onToggle]);
 }
