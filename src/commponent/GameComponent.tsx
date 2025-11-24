@@ -12,6 +12,9 @@ const GameComponent = () => {
     useJoystickFocus();
 
     const returnToGame = () => {
+
+        console.log("🎮 returnToGame 실행됨!"); // ← 여기 console.log 추가
+
         if (window.unityInstance) {
             window.unityInstance.SendMessage(
                 "ReceiverObject",
@@ -24,9 +27,9 @@ const GameComponent = () => {
     return (
         <>
             <button
-                className="joystick-focus"  // ★ 조이스틱 포커스 등록
-                tabIndex={0}                // ★ 포커스 가능 요소로 변경
-                onClick={returnToGame}      // ★ A 버튼 누르면 자동으로 실행됨
+                className="joystick-focus"
+                tabIndex={0}
+                onClick={returnToGame}
             >
                 게임으로 돌아가기
             </button>
