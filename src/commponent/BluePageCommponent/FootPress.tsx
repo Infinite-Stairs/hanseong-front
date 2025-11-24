@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./FootPress.module.css";
 import 오른발 from "../../assets/오른발.png";
 import 왼발 from "../../assets/왼발.png";
-import { getMetrics } from "../../api/api"; // <-- API 함수 가져오기
+import { getMetrics } from "../../api/api";
 
 const FootPress = () => {
   const [leftPct, setLeftPct] = useState<number | null>(null);

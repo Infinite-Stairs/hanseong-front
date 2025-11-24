@@ -23,7 +23,7 @@ const AttendanceGrid: React.FC = () => {
     const dates: string[] = [];
     const today = new Date();
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 21; i++) {
       const d = new Date();
       d.setDate(today.getDate() - i);
 
