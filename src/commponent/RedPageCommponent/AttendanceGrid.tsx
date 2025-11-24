@@ -56,8 +56,7 @@ const AttendanceGrid: React.FC = () => {
             stepCount: data.total_steps,
           });
         } catch (err) {
-          // 데이터를 못 받아오면 0으로 처리
-          console.error("스트릭 정보를 받아오지 못했음..ㅜㅜ",err)
+          console.error("스트릭 정보를 받아오지 못했음..ㅜㅜ", err);
           result.push({ date, stepCount: 0 });
         }
       }
@@ -74,7 +73,12 @@ const AttendanceGrid: React.FC = () => {
         {days.map((day) => (
           <div
             key={day.date}
-            className={`${styles.cell} ${styles[getColorLevel(day.stepCount)]}`}
+            className={`${styles.cell} ${styles[getColorLevel(day.stepCount)]} joystick-focus`}
+            tabIndex={0}   // div를 포커스 가능하게 만듬 (중요!)
+            onClick={() => {
+              console.log("선택한 날짜:", day.date);
+              console.log("계단 수:", day.stepCount);
+            }}
             onMouseEnter={() => setHoverInfo(day)}
             onMouseLeave={() => setHoverInfo(null)}
           />

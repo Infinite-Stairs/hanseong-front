@@ -5,26 +5,27 @@ import FootPress from "../commponent/BluePageCommponent/FootPress";
 import Title from "../layout/Title";
 import BuildingGrid from "../commponent/RedPageCommponent/BuildingGrid";
 
+import useJoystickFocus from "../commponent/useJoystickFocus";
+
 const BluePage = () => {
   const [backendData] = useState({
     isScoliosisRisk: true,
     isFootPressureBalanced: false,
   });
 
+  // ★ 게임패드 포커스 기능 활성화
+  useJoystickFocus();
+
   return (
     <section className={styles.wrapper}>
       <Title />
 
       <div className={styles.contentWrapper}>
-        {/* 왼쪽: 족저압 정보 */}
         <div className={styles.leftPanel}>
           <div className={styles.leftTitle}>족저압 정보</div>
-
-          {/* FootPress가 자체적으로 API 호출 */}
           <FootPress />
         </div>
 
-        {/* 오른쪽: 헬스 케어 정보 */}
         <div className={styles.rightPanel}>
           <div className={styles.rightTitle}>퍼스널 헬스 케어 데이터</div>
           <div className={styles.card}>

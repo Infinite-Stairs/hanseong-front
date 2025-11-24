@@ -1,29 +1,45 @@
 import { useEffect, useRef } from "react";
 
-export default function useJoystickNavigation(onToggle: () => void) {
+interface JoystickHandlers {
+  onLeft?: () => void;
+  onRight?: () => void;
+  onSelect?: () => void; // A 버튼
+}
+
+export default function useJoystickNavigation({
+  onLeft,
+  onRight,
+  onSelect,
+}: JoystickHandlers) {
   const prev = useRef<boolean[]>([]);
 
   useEffect(() => {
     const loop = () => {
-      const gamepads = navigator.getGamepads();
-      const gp = gamepads[0];
+      const gp = navigator.getGamepads()[0];
       if (!gp) return;
 
-      const cur = gp.buttons.map(b => b.pressed);
+      const cur = gp.buttons.map((b) => b.pressed);
 
-      // A(0), B(1), UP(12), DOWN(13)
-      const toggleButtons = [0, 1, 12, 13];
+      const LEFT = 14;   // 방향키 LEFT
+      const RIGHT = 15;  // 방향키 RIGHT
+      const A = 0;       // A 버튼
 
-      toggleButtons.forEach(i => {
-        if (cur[i] && !prev.current[i]) {
-          onToggle();
-        }
-      });
+      if (cur[LEFT] && !prev.current[LEFT]) {
+        onLeft && onLeft();
+      }
+
+      if (cur[RIGHT] && !prev.current[RIGHT]) {
+        onRight && onRight();
+      }
+
+      if (cur[A] && !prev.current[A]) {
+        onSelect && onSelect();
+      }
 
       prev.current = cur;
     };
 
     const id = setInterval(loop, 50);
     return () => clearInterval(id);
-  }, [onToggle]);
+  }, [onLeft, onRight, onSelect]);
 }

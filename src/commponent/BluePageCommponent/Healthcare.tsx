@@ -33,8 +33,13 @@ const Healthcare = ({ isRisk }: HealthcareProps) => {
             </div>
           </div>
           <div className={styles.cardButtons}>
-            <button className={styles.actionButton_left}>해결책 보러가기</button>
-            <button className={styles.actionButton_right}>해결책 보러가기</button>
+              <button className={`${styles.actionButton_left} joystick-focus`}>
+              해결책 보러가기
+              </button>
+
+              <button className={`${styles.actionButton_right} joystick-focus`}>
+              해결책 보러가기
+              </button>
           </div>
         </section>
 
