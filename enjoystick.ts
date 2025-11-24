@@ -3,43 +3,36 @@ import { useEffect, useRef } from "react";
 interface JoystickHandlers {
   onLeft?: () => void;
   onRight?: () => void;
-  onSelect?: () => void; // A 버튼
+  onSelect?: () => void;
 }
 
-export default function useJoystickNavigation({
-  onLeft,
-  onRight,
-  onSelect,
-}: JoystickHandlers) {
+export default function useJoystickNavigation(handlers: JoystickHandlers) {
   const prev = useRef<boolean[]>([]);
 
   useEffect(() => {
+    let frameId = 0;
+
     const loop = () => {
       const gp = navigator.getGamepads()[0];
-      if (!gp) return;
+      if (gp) {
+        const cur = gp.buttons.map((b) => b.pressed);
 
-      const cur = gp.buttons.map((b) => b.pressed);
+        const LEFT = 14;
+        const RIGHT = 15;
+        const A = 0;
 
-      const LEFT = 14;   // 방향키 LEFT
-      const RIGHT = 15;  // 방향키 RIGHT
-      const A = 0;       // A 버튼
+        if (cur[LEFT] && !prev.current[LEFT]) handlers.onLeft?.();
+        if (cur[RIGHT] && !prev.current[RIGHT]) handlers.onRight?.();
+        if (cur[A] && !prev.current[A]) handlers.onSelect?.();
 
-      if (cur[LEFT] && !prev.current[LEFT]) {
-        onLeft && onLeft();
+        prev.current = cur;
       }
 
-      if (cur[RIGHT] && !prev.current[RIGHT]) {
-        onRight && onRight();
-      }
-
-      if (cur[A] && !prev.current[A]) {
-        onSelect && onSelect();
-      }
-
-      prev.current = cur;
+      frameId = requestAnimationFrame(loop);
     };
 
-    const id = setInterval(loop, 50);
-    return () => clearInterval(id);
-  }, [onLeft, onRight, onSelect]);
+    frameId = requestAnimationFrame(loop);
+
+    return () => cancelAnimationFrame(frameId);
+  }, [handlers]);
 }
