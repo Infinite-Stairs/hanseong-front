@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 interface JoystickHandlers {
   onLeft?: () => void;
@@ -7,32 +7,20 @@ interface JoystickHandlers {
 }
 
 export default function useJoystickNavigation(handlers: JoystickHandlers) {
-  const prev = useRef<boolean[]>([]);
-
   useEffect(() => {
-    let frameId = 0;
-
-    const loop = () => {
-      const gp = navigator.getGamepads()[0];
-      if (gp) {
-        const cur = gp.buttons.map((b) => b.pressed);
-
-        const LEFT = 14;
-        const RIGHT = 15;
-        const A = 0;
-
-        if (cur[LEFT] && !prev.current[LEFT]) handlers.onLeft?.();
-        if (cur[RIGHT] && !prev.current[RIGHT]) handlers.onRight?.();
-        if (cur[A] && !prev.current[A]) handlers.onSelect?.();
-
-        prev.current = cur;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        handlers.onLeft && handlers.onLeft();
       }
-
-      frameId = requestAnimationFrame(loop);
+      if (e.key === "ArrowRight") {
+        handlers.onRight && handlers.onRight();
+      }
+      if (e.key === "Enter") {
+        handlers.onSelect && handlers.onSelect();
+      }
     };
 
-    frameId = requestAnimationFrame(loop);
-
-    return () => cancelAnimationFrame(frameId);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handlers]);
 }
