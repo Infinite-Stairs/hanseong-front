@@ -85,7 +85,7 @@ export const getDailyStats = <T>(date: string, token?: string) =>
 // ------------------------------
 export async function getMetrics(n: number = 1): Promise<Metrics[]> {
   return apiFetch<Metrics[]>(
-    `/metrics?n=${n}`,
+    `metrics?n=${n}`,
     { method: "GET" },
     METRICS_BASE_URL
   );
