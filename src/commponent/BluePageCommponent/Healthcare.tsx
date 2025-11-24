@@ -11,19 +11,33 @@ const Healthcare = ({ isRisk }: HealthcareProps) => {
   return (
     <>
       {isRisk ? (
-        <section className={styles.IstnotOk}>
-          <div className={styles.notokleft}>
-
-          </div>
-          <div className={styles.notokright}>
-            <h3>척추측만증 위험군입니다.</h3>
-            <img src={아픔} alt="아픔"></img>
-          </div>
-            <div className={styles.cardButtons}>
-              <button className={styles.actionButton}>해결책 보러가기</button>
-              <button className={styles.actionButton}>해결책 보러가기</button>
+        <section className={styles.IsnotOk}>
+          <div className={styles.contentRow}>
+            <div className={styles.notokleft}>
+              <div className={styles.explain_text}>
+                [직접적 영향] <br/>
+                1. 족저근막염 및 발 통증 <br/>
+                2. 발목 불안정성<br/>
+                3. 발바닥 과도한 굳은살/티눈<br/>
+                <br/>
+                [간접적 영향] <br/>
+                1. 무릎/고관절 통증 <br/>
+                2. 골반 기울어짐 → 좌/우 하강 <br/>
+                3. 척추 측만증 유발 또는 악화<br/>
+              </div>
             </div>
+
+            <div className={styles.notokright}>
+              <h3>척추측만증 위험군입니다.</h3>
+              <img src={아픔} alt="아픔" />
+            </div>
+          </div>
+          <div className={styles.cardButtons}>
+            <button className={styles.actionButton_left}>해결책 보러가기</button>
+            <button className={styles.actionButton_right}>해결책 보러가기</button>
+          </div>
         </section>
+
       ) : (
         <section className={styles.ItsOk}>
           <div className={styles.okleft}>

@@ -1,18 +1,32 @@
+// ------------------------------
+// 공용 타입
+// ------------------------------
 interface ApiOptions extends RequestInit {
   token?: string;
 }
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+// 서버 2개
+const STREAK_BASE_URL = import.meta.env.VITE_STREAK_API_URL;   // ex: http://localhost:8001
+const METRICS_BASE_URL = import.meta.env.VITE_METRICS_API_URL; // ex: http://localhost:8000
 
-async function apiFetch<T>(endpoint: string, options: ApiOptions = {}): Promise<T> {
+
+// ------------------------------
+// 공통 fetch 함수
+// ------------------------------
+async function apiFetch<T>(
+  endpoint: string,
+  options: ApiOptions = {},
+  baseUrl: string
+): Promise<T> {
   const { token, ...rest } = options;
+
   const headers: HeadersInit = {
     "Content-Type": "application/json",
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...rest.headers,
   };
 
-  const res = await fetch(`${BASE_URL}${endpoint}`, { ...rest, headers });
+  const res = await fetch(`${baseUrl}${endpoint}`, { ...rest, headers });
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
@@ -22,26 +36,60 @@ async function apiFetch<T>(endpoint: string, options: ApiOptions = {}): Promise<
   return res.json();
 }
 
-// 예제: GET / POST
-export const apiGet = <T>(url: string, token?: string) => apiFetch<T>(url, { method: "GET", token });
-export const apiPost = <T>(url: string, data?: object, token?: string) =>
-  apiFetch<T>(url, { method: "POST", body: JSON.stringify(data), token });
+// ------------------------------
+// 공용 GET / POST
+// ------------------------------
+export const apiGet = <T>(
+  url: string,
+  token?: string,
+  baseUrl: string = STREAK_BASE_URL
+) => apiFetch<T>(url, { method: "GET", token }, baseUrl);
 
-// 스트릭관련 api 받아올때 필요한 코드
-export const getDailyStats = <T>(date: string, token?: string) =>
-  apiGet<T>(`/api/game/results/daily?date_str=${date}`, token);
+export const apiPost = <T>(
+  url: string,
+  data?: object,
+  token?: string,
+  baseUrl: string = STREAK_BASE_URL
+) =>
+  apiFetch<T>(url, { method: "POST", body: JSON.stringify(data), token }, baseUrl);
 
-// Get/metrics 관련 코드
-export async function getMetrics(n: number = 1) {
-  const response = await fetch(`${BASE_URL}/metrics?n=${n}`, {
-    method: "GET",
-  });
 
-  if (!response.ok) {
-    throw new Error(`API 요청 실패: ${response.status}`);
-  }
-
-  return response.json(); // 배열 형태 그대로 반환됨
+// ------------------------------
+// Metrics 타입 정의
+// (백엔드 응답 형태에 따라 수정 가능)
+// ------------------------------
+export interface Metrics {
+  left_pct: number;
+  right_pct: number;
+  created_at?: string;
+  id?: string;
+  cop_y_pct: number;
+  cop_x_pct: number;
+  cop_ok: boolean;
 }
+
+
+// ------------------------------
+// 스트릭 관련 API (8001)
+// ------------------------------
+export const getDailyStats = <T>(date: string, token?: string) =>
+  apiGet<T>(
+    `/api/game/results/daily?date_str=${date}`,
+    token,
+    STREAK_BASE_URL
+  );
+
+
+// ------------------------------
+// 메트릭 관련 API (8000)
+// ------------------------------
+export async function getMetrics(n: number = 1): Promise<Metrics[]> {
+  return apiFetch<Metrics[]>(
+    `/metrics?n=${n}`,
+    { method: "GET" },
+    METRICS_BASE_URL
+  );
+}
+
 
 export default apiFetch;

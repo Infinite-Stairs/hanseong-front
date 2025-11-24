@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AttendanceGrid.module.css";
 import { getDailyStats } from "../../api/api";
+
 interface DayData {
   date: string;
   stepCount: number;
@@ -56,6 +57,7 @@ const AttendanceGrid: React.FC = () => {
           });
         } catch (err) {
           // 데이터를 못 받아오면 0으로 처리
+          console.error("스트릭 정보를 받아오지 못했음..ㅜㅜ",err)
           result.push({ date, stepCount: 0 });
         }
       }
