@@ -74,7 +74,7 @@ export interface Metrics {
 // ------------------------------
 export const getDailyStats = <T>(date: string, token?: string) =>
   apiGet<T>(
-    `/api/game/results/daily?date_str=${date}`,
+    `api/game/results/daily?date_str=${date}`,
     token,
     STREAK_BASE_URL
   );
