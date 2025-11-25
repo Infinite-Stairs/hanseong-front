@@ -1,40 +1,35 @@
-declare global {
-    interface Window {
-        unityInstance: any;
-    }
-}
-
 import useJoystickFocus from "./useJoystickFocus";
 
 const GameComponent = () => {
+  useJoystickFocus();
 
-    // ★ 조이스틱 포커스 활성화
-    useJoystickFocus();
+  const returnToGame = () => {
+    console.log("🎮 returnToGame 실행됨!");
 
-    const returnToGame = () => {
+    const frame: any = document.getElementById("unity-frame");
+    if (!frame?.contentWindow) {
+      console.warn("Unity iframe을 찾을 수 없음");
+      return;
+    }
 
-        console.log("🎮 returnToGame 실행됨!"); // ← 여기 console.log 추가
-
-        if (window.unityInstance) {
-            window.unityInstance.SendMessage(
-                "ReceiverObject",
-                "OnReturnToGame",
-                ""
-            );
-        }
-    };
-
-    return (
-        <>
-            <button
-                className="joystick-focus"
-                tabIndex={0}
-                onClick={returnToGame}
-            >
-                게임으로 돌아가기
-            </button>
-        </>
+    frame.contentWindow.postMessage(
+      {
+        type: "SEND_MESSAGE",
+        target: "ReceiverObject",
+        method: "OnReturnToGame",
+        value: ""
+      },
+      "*" // 실제 배포시에는 '*' 대신 Unity 호스트 origin으로 바꿔주세요
     );
+  };
+
+  return (
+    <>
+      <button className="joystick-focus" tabIndex={0} onClick={returnToGame}>
+        게임으로 돌아가기
+      </button>
+    </>
+  );
 };
 
 export default GameComponent;
