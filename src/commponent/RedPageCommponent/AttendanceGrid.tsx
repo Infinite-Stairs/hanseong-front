@@ -38,34 +38,39 @@ const AttendanceGrid: React.FC = () => {
     return dates.reverse(); // 오래된 날짜 → 최근 날짜
   };
 
-  useEffect(() => {
-    const fetchAll = async () => {
-      const dateList = getRecentDates();
-      const result: DayData[] = [];
+useEffect(() => {
+  const fetchAll = async () => {
+    const dateList = getRecentDates();
+    const result: DayData[] = [];
 
-      for (const date of dateList) {
-        try {
-          const data = await getDailyStats<{
-            date: string;
-            total_steps: number;
-            total_calories: number;
-          }>(date);
+    for (const date of dateList) {
+      try {
+        const data = await getDailyStats<{
+          date: string;
+          total_steps: number;
+          total_calories: number;
+        }>(date);
 
-          result.push({
-            date: data.date,
-            stepCount: data.total_steps,
-          });
-        } catch (err) {
-          console.error("스트릭 정보를 받아오지 못했음..ㅜㅜ", err);
-          result.push({ date, stepCount: 0 });
-        }
+        // ⭐ 성공 로그 추가!
+        console.log(`API 성공! 날짜: ${date}, 계단 수: ${data.total_steps}`);
+
+        result.push({
+          date: data.date,
+          stepCount: data.total_steps,
+        });
+      } catch (err) {
+        console.error("스트릭 정보를 받아오지 못했음..ㅜㅜ", err);
+
+        result.push({ date, stepCount: 0 });
       }
+    }
 
-      setDays(result);
-    };
+    setDays(result);
+  };
 
-    fetchAll();
-  }, []);
+  fetchAll();
+}, []);
+
 
   return (
     <div className={styles.attendanceContainer}>

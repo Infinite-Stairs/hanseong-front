@@ -14,6 +14,12 @@ const FootPress = () => {
         const res = await getMetrics(1); // GET /metrics?n=1
         const data = res[0];
 
+        // ⭐ API 성공 로그 추가
+        console.log(
+          "족저압 데이터 받아오기 성공!",
+          `왼발: ${data.left_pct}%, 오른발: ${data.right_pct}%`
+        );
+
         setLeftPct(data.left_pct);
         setRightPct(data.right_pct);
       } catch (err) {
