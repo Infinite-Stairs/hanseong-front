@@ -11,7 +11,7 @@ const GameComponent = () => {
       console.warn("Unity iframe을 찾을 수 없음");
       return;
     }
-
+    
     frame.contentWindow.postMessage(
       {
         type: "SEND_MESSAGE",

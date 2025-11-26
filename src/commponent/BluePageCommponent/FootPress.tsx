@@ -4,61 +4,54 @@ import 오른발 from "../../assets/오른발.png";
 import 왼발 from "../../assets/왼발.png";
 import { getMetrics } from "../../api/api";
 
+interface Metrics {
+  left_pct: number;
+  right_pct: number;
+}
+
 const FootPress = () => {
-  const [leftPct, setLeftPct] = useState<number | null>(null);
-  const [rightPct, setRightPct] = useState<number | null>(null);
-  const [copX, setCopX] = useState<number | null>(null);
-  const [copY, setCopY] = useState<number | null>(null);
+  const [data, setData] = useState<Metrics | null>(null);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
-        const res = await getMetrics(1); // GET /metrics?n=1
-        const data = res[0];
+        const res: Metrics[] = await getMetrics();
 
-        console.log(
-          "족저압 데이터 받아오기 성공!",
-          `왼발: ${data.left_pct}%, 오른발: ${data.right_pct}%`
-        );
-
-        console.log(
-          "cop값 확인 용 로그임다",
-          `cop_y: ${data.cop_y_pct}%, cop_x: ${data.cop_x_pct}%, cop_ok: ${data.cop_ok}`
-        );
-
-        setLeftPct(data.left_pct);
-        setRightPct(data.right_pct);
-        setCopX(data.cop_x_pct);
-        setCopY(data.cop_y_pct);
-
-      } catch (err) {
-        console.error("족저압 데이터를 불러오지 못했습니다.", err);
+        if (res && res.length > 0) {
+          const lastMetric = res[res.length - 1]; // 🔥 가장 최근 측정 데이터 1개만 가져오기
+          setData(lastMetric);
+        }
+      } catch (error) {
+        console.error("데이터 불러오기 실패:", error);
       }
-    }
+    };
 
     fetchData();
+    const timer = setInterval(fetchData, 2000); // 2초마다 갱신
+
+    return () => clearInterval(timer);
   }, []);
 
-  if (leftPct === null || rightPct === null) {
-    return <div>Loading...</div>;
-  }
-
-  const isRightDominant = rightPct > leftPct;
-
   return (
-    <>
-      {isRightDominant ? (
-        <div className={styles.right}>
-          <img src={오른발} alt="오른발" />
-          <p>{rightPct}%</p>
+    <div className={styles.container}>
+      <h2>족저압 센서</h2>
+
+      <div className={styles.pressContainer}>
+        <div className={styles.footBox}>
+          <img src={왼발} alt="왼발" className={styles.footImg} />
+          <p className={styles.valueText}>
+            {data ? `${data.left_pct}%` : "Loading..."}
+          </p>
         </div>
-      ) : (
-        <div className={styles.left}>
-          <img src={왼발} alt="왼발" />
-          <p>{leftPct}%</p>
+
+        <div className={styles.footBox}>
+          <img src={오른발} alt="오른발" className={styles.footImg} />
+          <p className={styles.valueText}>
+            {data ? `${data.right_pct}%` : "Loading..."}
+          </p>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 
