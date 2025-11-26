@@ -5,7 +5,7 @@ const Balance_SolutionPage = () => {
 <>
 <div className={styles.SolutionWarrap}>
     <div className={styles.balance_solution}>
-
+        
     </div>
 </div>
 </>

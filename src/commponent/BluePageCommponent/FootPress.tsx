@@ -7,6 +7,8 @@ import { getMetrics } from "../../api/api";
 const FootPress = () => {
   const [leftPct, setLeftPct] = useState<number | null>(null);
   const [rightPct, setRightPct] = useState<number | null>(null);
+  const [copX, setCopX] = useState<number | null>(null);
+  const [copY, setCopY] = useState<number | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -14,14 +16,21 @@ const FootPress = () => {
         const res = await getMetrics(1); // GET /metrics?n=1
         const data = res[0];
 
-        // ⭐ API 성공 로그 추가
         console.log(
           "족저압 데이터 받아오기 성공!",
           `왼발: ${data.left_pct}%, 오른발: ${data.right_pct}%`
         );
 
+        console.log(
+          "cop값 확인 용 로그임다",
+          `cop_y: ${data.cop_y_pct}%, cop_x: ${data.cop_x_pct}%, cop_ok: ${data.cop_ok}%`
+        );
+
         setLeftPct(data.left_pct);
         setRightPct(data.right_pct);
+        setCopX(data.cop_x_pct);
+        setCopY(data.cop_y_pct);
+
       } catch (err) {
         console.error("족저압 데이터를 불러오지 못했습니다.", err);
       }
@@ -30,7 +39,6 @@ const FootPress = () => {
     fetchData();
   }, []);
 
-  // API 도착 전
   if (leftPct === null || rightPct === null) {
     return <div>Loading...</div>;
   }
