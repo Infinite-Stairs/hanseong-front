@@ -30,16 +30,18 @@ const BuildingGrid = () => {
 
   // 건물 리스트
   const buildings = [
-    { id: "infoIsland", name: "정보섬", dark: 정보섬_흐림, bright: 정보섬_밝음, required: 1000, className: styles.infoIsland },
-    { id: "bigben", name: "빅벤", dark: 빅벤_흐림, bright: 빅벤_밝음, required: 2000, className: styles.bigben },
-    { id: "khalifa", name: "칼리파", dark: 칼리파_흐림, bright: 칼리파_밝음, required: 3000, className: styles.khalifa },
-    { id: "lotte", name: "롯데타워", dark: 롯데타워_흐림, bright: 롯데타워_밝음, required: 4000, className: styles.lotte },
-    { id: "namsan", name: "남산타워", dark: 남산타워_흐림, bright: 남산타워_밝음, required: 5000, className: styles.namsan },
+    { id: "infoIsland", name: "정보섬", dark: 정보섬_흐림, bright: 정보섬_밝음, required: 2500, className: styles.infoIsland },
+    { id: "bigben", name: "빅벤", dark: 빅벤_흐림, bright: 빅벤_밝음, required: 12000, className: styles.bigben },
+    { id: "khalifa", name: "칼리파", dark: 칼리파_흐림, bright: 칼리파_밝음, required: 20000, className: styles.khalifa },
+    { id: "lotte", name: "롯데타워", dark: 롯데타워_흐림, bright: 롯데타워_밝음, required: 9000, className: styles.lotte },
+    { id: "namsan", name: "남산타워", dark: 남산타워_흐림, bright: 남산타워_밝음, required: 7000, className: styles.namsan },
   ];
 
   const getPercentage = (requiredSteps: number) => {
     return Math.min(100, Math.floor((totalSteps / requiredSteps) * 100));
   };
+
+console.log(`API 성공! 총 계단 수: ${totalSteps}`);
 
   return (
     <div className={styles.buildingWrapper}>

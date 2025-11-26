@@ -91,13 +91,14 @@ export const getTotalSteps = async (
   token?: string
 ): Promise<number> => {
   const data = await apiGet<DailyResultResponse>(
-    `api/game/results/daily?date_str=${date}`,
+    `api/game/results/summary?date_str=${date}`,
     token,
     STREAK_BASE_URL
   );
 
   return data.total_steps;
 };
+
 
 
 // ------------------------------
