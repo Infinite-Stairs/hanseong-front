@@ -1,20 +1,59 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./BluePage.module.css";
 import Healthcare from "../commponent/BluePageCommponent/Healthcare";
 import FootPress from "../commponent/BluePageCommponent/FootPress";
 import Title from "../layout/Title";
 import BuildingGrid from "../commponent/RedPageCommponent/BuildingGrid";
-
 import useJoystickFocus from "../commponent/useJoystickFocus";
+import { getMetrics } from "../api/api";
 
 const BluePage = () => {
-  const [backendData] = useState({
-    isScoliosisRisk: true,
+  const [backendData, setBackendData] = useState({
+    isScoliosisRisk: false,
     isFootPressureBalanced: false,
   });
 
+  const [leftPct, setLeftPct] = useState<number | null>(null);
+  const [rightPct, setRightPct] = useState<number | null>(null);
+
   // ★ 게임패드 포커스 기능 활성화
   useJoystickFocus();
+
+useEffect(() => {
+  const fetchData = async () => {
+    const metrics = await getMetrics(1); // 최신 1개
+    const latest = metrics[0]; // ← 여기서 바로 하나 꺼냄
+
+    if (!latest) return;
+
+    setLeftPct(latest.left_pct);
+    setRightPct(latest.right_pct);
+  };
+
+  fetchData();
+}, []);
+
+  // 퍼센트 값 변경될 때 Boolean 자동 계산
+  useEffect(() => {
+    if (leftPct === null || rightPct === null) return;
+
+    const total = leftPct + rightPct;
+
+    const leftRatio = leftPct / total;
+    const rightRatio = rightPct / total;
+
+    // 60% : 40% 이상이면 true
+    const scoliosisRisk =
+      leftRatio >= 0.6 || rightRatio >= 0.6;
+
+    // 오른쪽 퍼센트가 더 크면 true
+    const footBalanced = rightPct > leftPct;
+
+    setBackendData({
+      isScoliosisRisk: scoliosisRisk,
+      isFootPressureBalanced: footBalanced,
+    });
+  }, [leftPct, rightPct]);
 
   return (
     <section className={styles.wrapper}>

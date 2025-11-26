@@ -23,7 +23,7 @@ const FootPress = () => {
 
         console.log(
           "cop값 확인 용 로그임다",
-          `cop_y: ${data.cop_y_pct}%, cop_x: ${data.cop_x_pct}%, cop_ok: ${data.cop_ok}%`
+          `cop_y: ${data.cop_y_pct}%, cop_x: ${data.cop_x_pct}%, cop_ok: ${data.cop_ok}`
         );
 
         setLeftPct(data.left_pct);
