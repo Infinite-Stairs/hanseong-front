@@ -6,8 +6,8 @@ interface ApiOptions extends RequestInit {
 }
 
 // 서버 2개
-const STREAK_BASE_URL = import.meta.env.VITE_STREAK_API_URL;   // ex: http://localhost:8001
-const METRICS_BASE_URL = import.meta.env.VITE_METRICS_API_URL; // ex: http://localhost:8000
+const STREAK_BASE_URL = import.meta.env.VITE_STREAK_API_URL;
+const METRICS_BASE_URL = import.meta.env.VITE_METRICS_API_URL;
 
 
 // ------------------------------
@@ -79,6 +79,26 @@ export const getDailyStats = <T>(date: string, token?: string) =>
     STREAK_BASE_URL
   );
 
+// ------------------------------
+// total_steps 가져오기 (스트릭 서버 8001)
+// ------------------------------
+export interface DailyResultResponse {
+  total_steps: number;
+}
+
+export const getTotalSteps = async (
+  date: string,
+  token?: string
+): Promise<number> => {
+  const data = await apiGet<DailyResultResponse>(
+    `api/game/results/daily?date_str=${date}`,
+    token,
+    STREAK_BASE_URL
+  );
+
+  return data.total_steps;
+};
+
 
 // ------------------------------
 // 메트릭 관련 API (8000)
@@ -90,6 +110,7 @@ export async function getMetrics(n: number = 1): Promise<Metrics[]> {
     METRICS_BASE_URL
   );
 }
+
 
 
 export default apiFetch;
