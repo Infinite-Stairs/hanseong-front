@@ -8,22 +8,25 @@ interface FootPressProps {
 }
 
 const FootPress = ({ leftPct, rightPct }: FootPressProps) => {
+  const showLeft =
+    leftPct !== null && (rightPct === null || leftPct >= rightPct);
+  const showRight =
+    rightPct !== null && (leftPct === null || rightPct > leftPct);
+
   return (
     <div className={styles.container}>
-      <h2>족저압 센서</h2>
-
       <div className={styles.pressContainer}>
-        {leftPct !== null && (
+        {showLeft && (
           <div className={styles.footBox}>
             <img src={왼발} alt="왼발" className={styles.footImg} />
-            <p className={styles.valueText}>{`${leftPct}%`}</p>
+            <p className={styles.valueText}>{`${leftPct!}%`}</p>
           </div>
         )}
 
-        {rightPct !== null && (
+        {showRight && (
           <div className={styles.footBox}>
             <img src={오른발} alt="오른발" className={styles.footImg} />
-            <p className={styles.valueText}>{`${rightPct}%`}</p>
+            <p className={styles.valueText}>{`${rightPct!}%`}</p>
           </div>
         )}
       </div>
