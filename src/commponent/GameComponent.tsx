@@ -2,25 +2,8 @@ import useJoystickFocus from "./useJoystickFocus";
 
 const GameComponent = () => {
   useJoystickFocus();
-
   const returnToGame = () => {
-    console.log("🎮 returnToGame 실행됨!");
-
-    const frame: any = document.getElementById("unity-frame");
-    if (!frame?.contentWindow) {
-      console.warn("Unity iframe을 찾을 수 없음");
-      return;
-    }
-    
-    frame.contentWindow.postMessage(
-      {
-        type: "SEND_MESSAGE",
-        target: "ReceiverObject",
-        method: "OnReturnToGame",
-        value: ""
-      },
-      "*" // 실제 배포시에는 '*' 대신 Unity 호스트 origin으로 바꿔주세요
-    );
+    window.open("https://eunseo-unity.vercel.app/", "_blank");
   };
 
   return (
