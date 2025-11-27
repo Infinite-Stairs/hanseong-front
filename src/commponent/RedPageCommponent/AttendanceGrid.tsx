@@ -9,7 +9,7 @@ interface DayData {
 
 const AttendanceGrid: React.FC = () => {
   const [days, setDays] = useState<DayData[]>([]);
-  const [hoverInfo, setHoverInfo] = useState<DayData | null>(null);
+  const [hoveredDate, setHoveredDate] = useState<string | null>(null);
 
   const getColorLevel = (steps: number): string => {
     if (steps === 0) return "level0";
@@ -75,27 +75,30 @@ useEffect(() => {
   return (
     <div className={styles.attendanceContainer}>
       <div className={styles.attendanceGrid}>
-        {days.map((day) => (
-          <div
-            key={day.date}
-            className={`${styles.cell} ${styles[getColorLevel(day.stepCount)]} joystick-focus`}
-            tabIndex={0}   // div를 포커스 가능하게 만듬 (중요!)
-            onClick={() => {
-              console.log("선택한 날짜:", day.date);
-              console.log("계단 수:", day.stepCount);
-            }}
-            onMouseEnter={() => setHoverInfo(day)}
-            onMouseLeave={() => setHoverInfo(null)}
-          />
-        ))}
+        {days.map((day) => {
+          const isHovered = hoveredDate === day.date;
+          return (
+            <div
+              key={day.date}
+              className={`${styles.cell} ${styles[getColorLevel(day.stepCount)]} joystick-focus`}
+              tabIndex={0}   // div를 포커스 가능하게 만듬 (중요!)
+              onClick={() => {
+                console.log("선택한 날짜:", day.date);
+                console.log("계단 수:", day.stepCount);
+              }}
+              onMouseEnter={() => setHoveredDate(day.date)}
+              onMouseLeave={() => setHoveredDate(null)}
+            >
+              {isHovered && (
+                <div className={styles.tooltip}>
+                  <p>{day.date}</p>
+                  <p>계단 수: {day.stepCount}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
-
-      {hoverInfo && (
-        <div className={styles.tooltip}>
-          <p>{hoverInfo.date}</p>
-          <p>계단 수: {hoverInfo.stepCount}</p>
-        </div>
-      )}
     </div>
   );
 };
