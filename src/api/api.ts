@@ -68,7 +68,6 @@ export interface Metrics {
   cop_ok: boolean;
 }
 
-
 // ------------------------------
 // 스트릭 관련 API (8001)
 // ------------------------------
@@ -99,7 +98,6 @@ export const getTotalSteps = async (
   return data.total_steps;
 };
 
-
 // ------------------------------
 // 메트릭 관련 API (8000)
 // ------------------------------
@@ -110,7 +108,5 @@ export async function getMetrics(n: number = 1): Promise<Metrics[]> {
     METRICS_BASE_URL
   );
 }
-
-
 
 export default apiFetch;

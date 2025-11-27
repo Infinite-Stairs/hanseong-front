@@ -51,7 +51,7 @@ useEffect(() => {
           total_calories: number;
         }>(date);
 
-        // ⭐ 성공 로그 추가!
+        // 성공 로그 추가!
         console.log(`API 성공! 날짜: ${date}, 계단 수: ${data.total_steps}`);
 
         result.push({

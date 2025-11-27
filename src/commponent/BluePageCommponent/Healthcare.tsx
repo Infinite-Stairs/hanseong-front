@@ -1,14 +1,24 @@
-import { Link } from "react-router-dom";
 import styles from "./Healthcare.module.css";
 import 안아픔 from "../../assets/안아픔.png";
 import 폭죽 from "../../assets/폭죽.png";
 import 아픔 from "../../assets/아픔.png";
+import { useNavigate } from "react-router-dom";
 
 interface HealthcareProps {
   isRisk: boolean;
 }
 
 const Healthcare = ({ isRisk }: HealthcareProps) => {
+  const navigate = useNavigate();
+
+  const gotoBalanceSolution = () => {
+    navigate("/balance"); // Balance_SolutionPage로 이동
+  };
+
+  const gotoCopSolution = () => {
+    navigate("/cop"); // Cop_SolutionPage로 이동
+  };
+
   return (
     <>
       {isRisk ? (
@@ -35,30 +45,34 @@ const Healthcare = ({ isRisk }: HealthcareProps) => {
           </div>
 
           <div className={styles.cardButtons}>
-            <Link
-              to="/Balance_SolutionPage"
+            <button
               className={`${styles.actionButton_left} joystick-focus`}
+              onClick={gotoBalanceSolution}
             >
               해결책 보러가기
-            </Link>
+            </button>
 
-            <Link
-              to="/Cop_SolutionPage"
+            <button
               className={`${styles.actionButton_right} joystick-focus`}
+              onClick={gotoCopSolution}
             >
               해결책 보러가기
-            </Link>
+            </button>
           </div>
         </section>
       ) : (
         <section className={styles.ItsOk}>
           <div className={styles.okleft}>
-            <h3>좌우벨런스가 <br />알맞습니다.</h3>
+            <h3>
+              좌우벨런스가 <br />알맞습니다.
+            </h3>
             <img src={폭죽} alt="폭죽" />
           </div>
 
           <div className={styles.okright}>
-            <h3>척추측만증 위험군이 <br /> 아닙니다.</h3>
+            <h3>
+              척추측만증 위험군이 <br /> 아닙니다.
+            </h3>
             <img src={안아픔} alt="안아픔" />
           </div>
         </section>
