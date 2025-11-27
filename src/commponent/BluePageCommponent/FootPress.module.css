@@ -1,4 +1,52 @@
-.valueText{
-    color: black;
-    font-size: 20px;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pressContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.footBox {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.footImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.valueText {
+  position: absolute;
+  color: black;
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.valueText:first-of-type {
+  left: 25%;
+  bottom: 5px;
+  transform: translateX(-50%);
+}
+
+.valueText:last-of-type {
+  right: 25%;
+  top: 5px;
+  transform: translateX(50%);
 }
