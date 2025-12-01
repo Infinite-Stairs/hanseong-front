@@ -1,12 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./Balance_Solution.module.css";
 import 발근력 from "../assets/balance_Solution/발근력.png";
 import 전신정렬개선 from "../assets/balance_Solution/전신정렬개선.png";
 import 종아리스트레칭 from "../assets/balance_Solution/종아리스트레칭.png";
 
 const Balance_SolutionPage = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <div className={styles.wrapper}>
+                <button className={styles.backButton} onClick={() => navigate("/")}>
+                    ← 뒤로가기
+                </button>
                 <div className={styles.SolutionWarrap}>
                 <div className={styles.solutionItem}>
                     <img src={발근력} alt="발근력사진" width={350} />

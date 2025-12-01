@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./Cop_SolutionPage.module.css";
 import 고양이_낙타자세 from "../assets/Cop_Solution/고양이_낙타자세.png";
 import 버드독운동  from "../assets/Cop_Solution/버드독운동.png";
@@ -5,9 +6,14 @@ import 브릿지 from "../assets/Cop_Solution/브릿지.png";
 import 앉기자세 from "../assets/Cop_Solution/앉기자세.png";
 
 const Cop_SolutionPage = () => {
+    const navigate = useNavigate();
+
     return(
 <>
 <div className={styles.wrapper}>
+    <button className={styles.backButton} onClick={() => navigate("/")}>
+        ← 뒤로가기
+    </button>
 <div className={styles.SolutionWarrap}>
         <div className={styles.solutionItem}>
             <img src={고양이_낙타자세} alt="고양이낙타자세" width={320} />
