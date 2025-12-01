@@ -4,7 +4,6 @@ import Healthcare from "../commponent/BluePageCommponent/Healthcare";
 import FootPress from "../commponent/BluePageCommponent/FootPress";
 import Title from "../layout/Title";
 import BuildingGrid from "../commponent/RedPageCommponent/BuildingGrid";
-import useJoystickFocus from "../commponent/useJoystickFocus";
 import { getMetrics } from "../api/api";
 
 const BluePage = () => {
@@ -15,9 +14,6 @@ const BluePage = () => {
 
   const [leftPct, setLeftPct] = useState<number | null>(null);
   const [rightPct, setRightPct] = useState<number | null>(null);
-
-  // ★ 게임패드 포커스 기능 활성화
-  useJoystickFocus();
 
   // 최신 데이터 가져오기
   useEffect(() => {

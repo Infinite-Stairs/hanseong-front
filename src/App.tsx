@@ -5,9 +5,13 @@ import BluePage from "./page/BluePage";
 import UpDownButton from "./commponent/UpDownButton";
 import Balance_SolutionPage from "./page/Balance_SolutionPage";
 import Cop_SolutionPage from "./page/Cop_SolutionPage";
+import useJoystickFocus from "./commponent/useJoystickFocus";
 
 const App = () => {
   const [isBluePage, setIsBluePage] = useState(true);
+  
+  // 전역 조이스틱 포커스 관리 (한 번만 호출)
+  useJoystickFocus();
 
   return (
     <div className="app-wrapper">
