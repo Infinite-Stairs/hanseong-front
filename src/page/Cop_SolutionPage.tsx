@@ -4,14 +4,16 @@ import 고양이_낙타자세 from "../assets/Cop_Solution/고양이_낙타자�
 import 버드독운동  from "../assets/Cop_Solution/버드독운동.png";
 import 브릿지 from "../assets/Cop_Solution/브릿지.png";
 import 앉기자세 from "../assets/Cop_Solution/앉기자세.png";
+import useJoystickFocus from "../commponent/useJoystickFocus";
 
 const Cop_SolutionPage = () => {
     const navigate = useNavigate();
+    useJoystickFocus();
 
     return(
 <>
 <div className={styles.wrapper}>
-    <button className={styles.backButton} onClick={() => navigate("/")}>
+    <button className={`${styles.backButton} joystick-focus`} onClick={() => navigate("/")}>
         ← 뒤로가기
     </button>
 <div className={styles.SolutionWarrap}>

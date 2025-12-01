@@ -3,14 +3,16 @@ import styles from "./Balance_Solution.module.css";
 import 발근력 from "../assets/balance_Solution/발근력.png";
 import 전신정렬개선 from "../assets/balance_Solution/전신정렬개선.png";
 import 종아리스트레칭 from "../assets/balance_Solution/종아리스트레칭.png";
+import useJoystickFocus from "../commponent/useJoystickFocus";
 
 const Balance_SolutionPage = () => {
     const navigate = useNavigate();
+    useJoystickFocus();
 
     return (
         <>
             <div className={styles.wrapper}>
-                <button className={styles.backButton} onClick={() => navigate("/")}>
+                <button className={`${styles.backButton} joystick-focus`} onClick={() => navigate("/")}>
                     ← 뒤로가기
                 </button>
                 <div className={styles.SolutionWarrap}>
