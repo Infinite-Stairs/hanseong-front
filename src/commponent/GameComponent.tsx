@@ -1,7 +1,4 @@
-import useJoystickFocus from "./useJoystickFocus";
-
 const GameComponent = () => {
-  useJoystickFocus();
   const returnToGame = () => {
     window.open("https://eunseo-unity.vercel.app/", "_blank");
   };

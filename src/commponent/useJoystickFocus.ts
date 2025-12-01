@@ -5,6 +5,8 @@ export default function useJoystickFocus() {
   const [focusIndex, setFocusIndex] = useState(0);
   const focusableRef = useRef<HTMLElement[]>([]);
   const initializedRef = useRef(false);
+  const lastClickTimeRef = useRef<number>(0);
+  const CLICK_DEBOUNCE_MS = 300; // 300ms 이내 중복 클릭 방지
 
   const collectFocusableElements = useCallback(() => {
     if (typeof document === "undefined") {
@@ -87,6 +89,13 @@ export default function useJoystickFocus() {
       });
     },
     onSelect: () => {
+      const now = Date.now();
+      // 300ms 이내 중복 클릭 방지
+      if (now - lastClickTimeRef.current < CLICK_DEBOUNCE_MS) {
+        return;
+      }
+      lastClickTimeRef.current = now;
+      
       const target = focusableRef.current[focusIndex];
       if (target instanceof HTMLElement) {
         target.click(); // 현재 포커스된 요소 클릭 실행
