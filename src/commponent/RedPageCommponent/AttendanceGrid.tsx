@@ -10,6 +10,7 @@ interface DayData {
 const AttendanceGrid: React.FC = () => {
   const [days, setDays] = useState<DayData[]>([]);
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
+  const [focusedDate, setFocusedDate] = useState<string | null>(null);
 
   const getColorLevel = (steps: number): string => {
     if (steps === 0) return "level0";
@@ -77,6 +78,8 @@ useEffect(() => {
       <div className={styles.attendanceGrid}>
         {days.map((day) => {
           const isHovered = hoveredDate === day.date;
+          const isFocused = focusedDate === day.date;
+          const showTooltip = isHovered || isFocused;
           return (
             <div
               key={day.date}
@@ -88,8 +91,10 @@ useEffect(() => {
               }}
               onMouseEnter={() => setHoveredDate(day.date)}
               onMouseLeave={() => setHoveredDate(null)}
+              onFocus={() => setFocusedDate(day.date)}
+              onBlur={() => setFocusedDate(null)}
             >
-              {isHovered && (
+              {showTooltip && (
                 <div className={styles.tooltip}>
                   <p>{day.date}</p>
                   <p>계단 수: {day.stepCount}</p>

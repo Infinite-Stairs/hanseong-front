@@ -16,6 +16,7 @@ import { getTotalSteps } from "../../api/api";
 
 const BuildingGrid = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [focusedId, setFocusedId] = useState<string | null>(null);
   const [totalSteps, setTotalSteps] = useState<number>(0);
 
   // 오늘 날짜로 total_steps 불러오기
@@ -46,22 +47,27 @@ console.log(`API 성공! 총 계단 수: ${totalSteps}`);
     <div className={styles.buildingWrapper}>
       {buildings.map((b) => {
         const isHovered = hoveredId === b.id;
+        const isFocused = focusedId === b.id;
+        const showTooltip = isHovered || isFocused;
         const percentage = getPercentage(b.required);
 
         return (
           <div
             key={b.id}
-            className={`${styles.buildingContainer} ${b.className}`}
+            className={`${styles.buildingContainer} ${b.className} joystick-focus`}
+            tabIndex={0}
             onMouseEnter={() => setHoveredId(b.id)}
             onMouseLeave={() => setHoveredId(null)}
+            onFocus={() => setFocusedId(b.id)}
+            onBlur={() => setFocusedId(null)}
           >
             <img
-              src={isHovered ? b.bright : b.dark}
+              src={showTooltip ? b.bright : b.dark}
               alt={b.name}
               className={styles.buildingImage}
             />
 
-            {isHovered && (
+            {showTooltip && (
               <div className={styles.tooltip}>
                 <p>{b.name}</p>
                 <p>{percentage} %</p>
