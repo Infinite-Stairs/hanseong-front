@@ -14,7 +14,11 @@ import 롯데타워_밝음 from "../../assets/building/롯데타워_밝음.png";
 
 import { getTotalSteps } from "../../api/api";
 
-const BuildingGrid = () => {
+interface BuildingGridProps {
+  disableHover?: boolean;
+}
+
+const BuildingGrid = ({ disableHover = false }: BuildingGridProps) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [totalSteps, setTotalSteps] = useState<number>(0);
@@ -54,12 +58,12 @@ console.log(`API 성공! 총 계단 수: ${totalSteps}`);
         return (
           <div
             key={b.id}
-            className={`${styles.buildingContainer} ${b.className} joystick-focus`}
-            tabIndex={0}
-            onMouseEnter={() => setHoveredId(b.id)}
-            onMouseLeave={() => setHoveredId(null)}
-            onFocus={() => setFocusedId(b.id)}
-            onBlur={() => setFocusedId(null)}
+            className={`${styles.buildingContainer} ${b.className} ${!disableHover ? 'joystick-focus' : ''}`}
+            tabIndex={disableHover ? -1 : 0}
+            onMouseEnter={!disableHover ? () => setHoveredId(b.id) : undefined}
+            onMouseLeave={!disableHover ? () => setHoveredId(null) : undefined}
+            onFocus={!disableHover ? () => setFocusedId(b.id) : undefined}
+            onBlur={!disableHover ? () => setFocusedId(null) : undefined}
           >
             <img
               src={showTooltip ? b.bright : b.dark}

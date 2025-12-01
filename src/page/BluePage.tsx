@@ -75,7 +75,7 @@ const BluePage = () => {
         </div>
 
         <div className={styles.blue_building}>
-          <BuildingGrid />
+          <BuildingGrid disableHover />
         </div>
       </div>
     </section>
