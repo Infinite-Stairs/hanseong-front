@@ -40,10 +40,6 @@
   animation-delay: 0.4s;
 }
 
-.solutionItem:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
 .solutionItem img {
   flex-shrink: 0;
   border-radius: 15px;

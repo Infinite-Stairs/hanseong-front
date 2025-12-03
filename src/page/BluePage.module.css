@@ -21,15 +21,12 @@
   margin-top: 190px;
 }
 
-.leftPanel,
-.rightPanel{
-  gap: 40px;
-}
 
 .leftPanel {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 50px;
 }
 
 .leftTitle {
@@ -45,6 +42,7 @@
   flex-direction: column;
   gap: 16px;
   color:black;
+  margin-left: 50px;
 }
 
 .rightTitle {
@@ -59,7 +57,7 @@
   border-radius: 24px;
   padding: 24px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 430px;
 }
 
 .cardButtons {
